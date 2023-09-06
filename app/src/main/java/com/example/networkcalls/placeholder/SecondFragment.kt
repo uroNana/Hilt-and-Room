@@ -45,8 +45,8 @@ class SecondFragment : Fragment() {
                 binding.networkLoading.visibility = View.GONE
             }
         }
-
     }
+
 
 
     private fun setText(it: Data){

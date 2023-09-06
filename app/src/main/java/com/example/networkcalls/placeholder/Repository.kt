@@ -1,5 +1,6 @@
 package com.example.networkcalls.placeholder
 
+import okhttp3.Callback
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -19,11 +20,13 @@ object Repository {
     }
 
 
+
     fun createRetrofitInstance(): Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://api.chucknorris.io/jokes/random/")
+            .baseUrl("https://api.chucknorris.io/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
     }
 
 }
