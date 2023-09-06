@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FirstFragment">
+
+
+   <TextView
+       android:id="@+id/title_text"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/welcome_to_my_app"
+       android:textSize="30sp"
+       android:textStyle="bold"
+       android:textColor="#FFA000"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintBottom_toTopOf="@id/subtitle_text"
+       app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/subtitle_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textColor="#FFD53B"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:text="@string/click_the_button_below_to_start_generate_random_jokes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_text"
+        app:layout_constraintBottom_toTopOf="@+id/button_first"/>
+
+
+    <Button
+        android:id="@+id/button_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/start_generate"
+        android:textColor="#FBD92D"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subtitle_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
