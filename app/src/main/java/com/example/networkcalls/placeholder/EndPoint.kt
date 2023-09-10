@@ -4,6 +4,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface EndPoint {
-    @GET("jokes/random")
+    @GET("v1/chucknorris")
     suspend fun networkCall(): Response<Data>
 }

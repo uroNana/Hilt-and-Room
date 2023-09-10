@@ -7,6 +7,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import com.google.gson.annotations.SerializedName
+
 
 
 object Repository {
@@ -14,7 +16,8 @@ object Repository {
 
     fun getEndPoint(): EndPoint {
         if (endPoint == null) {
-            val client = OkHttpClient.Builder().connectTimeout(30,TimeUnit.SECONDS)
+            val authorization = AuthorizationInterceptor()
+            val client = OkHttpClient.Builder().addInterceptor(authorization).connectTimeout(30,TimeUnit.SECONDS)
                 .readTimeout(30,TimeUnit.SECONDS)
                 .writeTimeout(30,TimeUnit.SECONDS)
                 .addInterceptor(HttpLoggingInterceptor().apply {
@@ -23,7 +26,7 @@ object Repository {
                 .build()
 
             endPoint = Retrofit.Builder()
-                .baseUrl("https://api.chucknorris.io/")
+                .baseUrl("https://chuck-norris-by-api-ninjas.p.rapidapi.com/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

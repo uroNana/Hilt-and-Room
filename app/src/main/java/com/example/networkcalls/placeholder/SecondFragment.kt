@@ -54,7 +54,7 @@ class SecondFragment : Fragment() {
 
 
     private fun setText(it: Data){
-        binding.textviewQuote.text = it.value
+        binding.textviewQuote.text = it.joke
 
     }
 
