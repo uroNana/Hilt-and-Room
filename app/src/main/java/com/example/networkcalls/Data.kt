@@ -1,4 +1,4 @@
-package com.example.networkcalls.placeholder
+package com.example.networkcalls
 
 import com.google.gson.annotations.SerializedName
 

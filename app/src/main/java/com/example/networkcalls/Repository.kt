@@ -1,14 +1,11 @@
-package com.example.networkcalls.placeholder
+package com.example.networkcalls
 
-import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import com.google.gson.annotations.SerializedName
-
 
 
 object Repository {

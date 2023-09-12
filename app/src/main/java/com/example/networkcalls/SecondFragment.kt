@@ -1,4 +1,4 @@
-package com.example.networkcalls.placeholder
+package com.example.networkcalls
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.networkcalls.Data
+import com.example.networkcalls.MyViewModel
 import com.example.networkcalls.databinding.FragmentSecondBinding
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 
 class SecondFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.example.networkcalls.placeholder
+package com.example.networkcalls
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

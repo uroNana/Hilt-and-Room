@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.networkcalls.placeholder.SecondFragment"
+        android:name="com.example.networkcalls.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" />
 
