@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.example.networkcalls.FirstFragment"
+        android:name="com.example.networkcalls.ui.FirstFragment"
         android:label="fragment_first"
         tools:layout="@layout/fragment_first" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.networkcalls.SecondFragment"
+        android:name="com.example.networkcalls.ui.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" />
 

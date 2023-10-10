@@ -1,7 +1,8 @@
-package com.example.networkcalls
+package com.example.networkcalls.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.networkcalls.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

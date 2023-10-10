@@ -1,18 +1,17 @@
-package com.example.networkcalls
+package com.example.networkcalls.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
-import com.example.networkcalls.Data
-import com.example.networkcalls.MyViewModel
+import com.example.networkcalls.MyApplication
 import com.example.networkcalls.databinding.FragmentSecondBinding
+import com.example.networkcalls.network.Data
 
 class SecondFragment : Fragment() {
 
-    private val viewModel: MyViewModel by activityViewModels()
+    private lateinit var viewModel: MyViewModel
 
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
@@ -31,9 +30,10 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val application = (requireActivity().application as MyApplication)
+        viewModel = application.factory.create(MyViewModel::class.java)
         binding.buttonSecond.setOnClickListener {
-            viewModel.networkCall()
+            viewModel.getJoke()
         }
 
 
@@ -53,8 +53,10 @@ class SecondFragment : Fragment() {
 
 
 
-    private fun setText(it: Data){
-        binding.textviewQuote.text = it.joke
+    private fun setText(it: Data?){
+        if (it != null) {
+            binding.textviewQuote.text = it.joke
+        }
 
     }
 
