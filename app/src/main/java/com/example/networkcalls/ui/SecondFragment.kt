@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.networkcalls.MyApplication
 import com.example.networkcalls.databinding.FragmentSecondBinding
 import com.example.networkcalls.network.Data
@@ -57,7 +58,10 @@ class SecondFragment : Fragment() {
         if (it != null) {
             binding.textviewQuote.text = it.joke
         }
-
+        if(viewModel.isFirstTimeUser.value == true && viewModel.isFirstTimeUser.value != null){
+            Toast.makeText(requireContext(), "That's your first joke!", Toast.LENGTH_SHORT).show()
+            viewModel.isFirstTimeUser.value = false
+        }
     }
 
     override fun onDestroyView() {
