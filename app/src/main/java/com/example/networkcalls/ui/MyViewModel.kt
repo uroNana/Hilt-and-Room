@@ -8,17 +8,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.networkcalls.network.Data
 import com.example.networkcalls.network.Provider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 const val KEY_FIRST_TIME_USER = "first_time_user"
 
 class MyViewModel(private val provider: Provider, private val preferences: SharedPreferences) : ViewModel() {
-    val result = MutableLiveData<Data?>()
-    val isLoading = MutableLiveData<Boolean>()
+    val result = MutableSharedFlow<Data?>()
+    val isLoading = MutableSharedFlow<Boolean>()
     val isFirstTimeUser = MutableLiveData<Boolean>()
 
     init {
-        isLoading.value = false
+        viewModelScope.launch(Dispatchers.IO) {
+            isLoading.emit(false)
+        }
     }
     init {
         checkFirstTimeUser(preferences)
@@ -32,15 +35,13 @@ class MyViewModel(private val provider: Provider, private val preferences: Share
     }
 
     fun getJoke(){
-
-        isLoading.value = true
-
         viewModelScope.launch(Dispatchers.IO){
+            isLoading.emit(true)
 
             var response = provider.getJokes()
             if (response != null){
-                isLoading.postValue(false)
-                result.postValue(response)
+                isLoading.emit(false)
+                result.emit(response)
             } else {
                 Log.e("NETWORK ERROR","Couldn't achieve network call")
             }

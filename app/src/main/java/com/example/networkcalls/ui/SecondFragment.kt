@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.networkcalls.MyApplication
 import com.example.networkcalls.databinding.FragmentSecondBinding
 import com.example.networkcalls.network.Data
+import kotlinx.coroutines.launch
 
 class SecondFragment : Fragment() {
 
@@ -38,16 +40,19 @@ class SecondFragment : Fragment() {
         }
 
 
-
-        viewModel.result.observe(viewLifecycleOwner){
+        lifecycleScope.launch {
+            viewModel.result.collect{
             setText(it)
+            }
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner){
-            if(it){
-                binding.networkLoading.visibility = View.VISIBLE
-            } else {
-                binding.networkLoading.visibility = View.GONE
+        lifecycleScope.launch {
+            viewModel.isLoading.collect {
+                if (it) {
+                    binding.networkLoading.visibility = View.VISIBLE
+                } else {
+                    binding.networkLoading.visibility = View.GONE
+                }
             }
         }
     }
