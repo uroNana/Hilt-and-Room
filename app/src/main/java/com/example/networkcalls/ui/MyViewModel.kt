@@ -1,11 +1,9 @@
 package com.example.networkcalls.ui
 
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.networkcalls.network.Data
+import com.example.networkcalls.MyViewState
 import com.example.networkcalls.network.Provider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,35 +12,34 @@ import kotlinx.coroutines.launch
 const val KEY_FIRST_TIME_USER = "first_time_user"
 
 class MyViewModel(private val provider: Provider, private val preferences: SharedPreferences) : ViewModel() {
-    val result = MutableSharedFlow<Data?>()
-    val isLoading = MutableSharedFlow<Boolean>()
-    val isFirstTimeUser = MutableSharedFlow<Boolean>()
+
+    val state = MutableSharedFlow<MyViewState>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            isLoading.emit(false)
+            state.emit(MyViewState.IsLoading)
         }
     }
+
     fun checkFirstTimeUser() {
         val firstTimeUser = preferences.getBoolean(KEY_FIRST_TIME_USER, true)
-        if(firstTimeUser) {
+        if (firstTimeUser) {
             preferences.edit().putBoolean(KEY_FIRST_TIME_USER, false).apply()
             viewModelScope.launch(Dispatchers.IO) {
-                isFirstTimeUser.emit(true)
+                state.emit(MyViewState.IsFirstTimeUser)
             }
         }
     }
 
-    fun getJoke(){
-        viewModelScope.launch(Dispatchers.IO){
-            isLoading.emit(true)
+    fun getJoke() {
+        viewModelScope.launch(Dispatchers.IO) {
+            state.emit(MyViewState.IsLoading)
 
-            var response = provider.getJokes()
-            if (response != null){
-                isLoading.emit(false)
-                result.emit(response)
+            val response = provider.getJokes()
+            if (response != null) {
+                state.emit(MyViewState.Result(response))
             } else {
-                Log.e("NETWORK ERROR","Couldn't achieve network call")
+                state.emit(MyViewState.NetworkError)
             }
         }
     }
