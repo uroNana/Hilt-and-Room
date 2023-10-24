@@ -55,19 +55,27 @@ class SecondFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launch {
+            viewModel.isFirstTimeUser.collect{ isFirstTimeUser ->
+                if(isFirstTimeUser) {
+                    Toast.makeText(requireContext(), "That's your first joke!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
     }
 
 
 
     private fun setText(it: Data?){
-        if (it != null) {
-            binding.textviewQuote.text = it.joke
-        }
-        if(viewModel.isFirstTimeUser.value == true && viewModel.isFirstTimeUser.value != null){
-            Toast.makeText(requireContext(), "That's your first joke!", Toast.LENGTH_SHORT).show()
-            viewModel.isFirstTimeUser.value = false
+        lifecycleScope.launch {
+            if (it != null) {
+                binding.textviewQuote.text = it.joke
+            }
+            viewModel.checkFirstTimeUser()
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

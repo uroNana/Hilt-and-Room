@@ -16,21 +16,20 @@ const val KEY_FIRST_TIME_USER = "first_time_user"
 class MyViewModel(private val provider: Provider, private val preferences: SharedPreferences) : ViewModel() {
     val result = MutableSharedFlow<Data?>()
     val isLoading = MutableSharedFlow<Boolean>()
-    val isFirstTimeUser = MutableLiveData<Boolean>()
+    val isFirstTimeUser = MutableSharedFlow<Boolean>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.emit(false)
         }
     }
-    init {
-        checkFirstTimeUser(preferences)
-    }
-    private fun checkFirstTimeUser(preferences: SharedPreferences) {
+    fun checkFirstTimeUser() {
         val firstTimeUser = preferences.getBoolean(KEY_FIRST_TIME_USER, true)
         if(firstTimeUser) {
             preferences.edit().putBoolean(KEY_FIRST_TIME_USER, false).apply()
-            isFirstTimeUser.value = true
+            viewModelScope.launch(Dispatchers.IO) {
+                isFirstTimeUser.emit(true)
+            }
         }
     }
 
