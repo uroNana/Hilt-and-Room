@@ -11,7 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.networkcalls.MyApplication
 import com.example.networkcalls.databinding.FragmentSecondBinding
 import com.example.networkcalls.network.Data
-import com.example.networkcalls.MyViewState
+import com.example.networkcalls.usecase.state.MyViewState
+import com.example.networkcalls.usecase.MyViewModel
 import kotlinx.coroutines.launch
 
 class SecondFragment : Fragment() {
@@ -31,7 +32,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val application = (requireActivity().application as MyApplication)
-        viewModel = application.factory.create(MyViewModel::class.java)
+        viewModel = application.mainViewModelFactory.create(MyViewModel::class.java)
         binding.buttonSecond.setOnClickListener {
             viewModel.getJoke()
         }

@@ -1,7 +1,5 @@
 package com.example.networkcalls.network
 
-import com.example.networkcalls.MyApplication
-import kotlinx.coroutines.coroutineScope
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
