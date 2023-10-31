@@ -26,9 +26,6 @@ class MyViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             state.emit(MyViewState.IsLoading)
-            //jokeRepository.loadRepos().collect {
-            //}
-
         }
     }
         fun checkFirstTimeUser() {
@@ -44,7 +41,8 @@ class MyViewModel(
             Log.d("MyViewModel", "getJoke")
 
             viewModelScope.launch(Dispatchers.IO) {
-                jokeRepository.getJoke()
+                val result = jokeRepository.getJoke()
+                state.emit(MyViewState.Result(result))
             }
         }
 

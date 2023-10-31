@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.map
 class JokeRepository(private val provider: Provider,
                      private val repoDao: RepoDao
 ) {
-    private val state = MutableSharedFlow<MyViewState>()
+    //private val state = MutableSharedFlow<MyViewState>()
     //suspend fun loadRepos(): Flow<List<Data>> {
     //    return repoDao.getAll().map { list -> list.map { it.toDomain() } }
    // }
 
 
     suspend fun getJoke(): Data? {
-        state.emit(MyViewState.IsLoading)
+        //state.emit(MyViewState.IsLoading)
         val response = provider.getJokes()
         val latestData = repoDao.getLatestData()
         return if (response != null) {

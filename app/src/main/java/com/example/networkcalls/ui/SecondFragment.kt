@@ -38,16 +38,18 @@ class SecondFragment : Fragment() {
         }
         lifecycleScope.launch {
             viewModel.state.collect { state ->
+                binding.networkLoading.visibility = View.GONE
+
                 when (state) {
                     is MyViewState.IsLoading -> {
                         binding.networkLoading.visibility = View.VISIBLE
                     }
                     is MyViewState.Result -> {
                         setText(state.data)
-                        binding.networkLoading.visibility = View.GONE
                     }
                     is MyViewState.NetworkError -> {
                         Log.e("NETWORK ERROR", "Couldn't achieve network call")
+                        binding.networkLoading.visibility = View.VISIBLE
                     }
                     is MyViewState.IsFirstTimeUser -> {
                         Toast.makeText(requireContext(), "That's your first joke!", Toast.LENGTH_SHORT).show()
