@@ -3,7 +3,6 @@ package com.example.networkcalls
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.networkcalls.network.Provider
 import com.example.networkcalls.repository.JokeRepository
 import com.example.networkcalls.usecase.MyViewModel
 
