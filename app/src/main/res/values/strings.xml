@@ -6,4 +6,5 @@
     <string name="welcome_to_my_app">WELCOME TO MY APP!</string>
     <string name="click_the_button_below_to_start_generate_random_jokes">Click the button below to start generate random Chuck Norris Jokes!</string>
     <string name="generate">GENERATE</string>
+    <string name="sorry_connection_not_available">Sorry, connection not available.</string>
 </resources>

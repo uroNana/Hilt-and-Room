@@ -32,15 +32,14 @@ class SecondFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val application = (requireActivity().application as MyApplication)
-        //viewModel = application.mainViewModelFactory.create(MyViewModel::class.java)
+        binding.errorMessage.visibility = View.GONE
+        binding.networkLoading.visibility = View.GONE
         binding.buttonSecond.setOnClickListener {
             viewModel.getJoke()
         }
+
         lifecycleScope.launch {
             viewModel.state.collect { state ->
-                binding.networkLoading.visibility = View.GONE
-
                 when (state) {
                     is MyViewState.IsLoading -> {
                         binding.networkLoading.visibility = View.VISIBLE
@@ -50,22 +49,29 @@ class SecondFragment : Fragment() {
                     }
                     is MyViewState.NetworkError -> {
                         Log.e("NETWORK ERROR", "Couldn't achieve network call")
-                        binding.networkLoading.visibility = View.VISIBLE
+                        binding.errorMessage.visibility = View.VISIBLE
                     }
                     is MyViewState.IsFirstTimeUser -> {
                         Toast.makeText(requireContext(), "That's your first joke!", Toast.LENGTH_SHORT).show()
                     }
                 }
+                if (state is MyViewState.Result && state.data == null) {
+                    binding.errorMessage.visibility = View.VISIBLE
+                } else {
+                    binding.errorMessage.visibility = View.GONE
+                }
             }
         }
     }
+
 
     private fun setText(it: Data?){
         lifecycleScope.launch {
             if (it != null) {
                 binding.textviewQuote.text = it.joke
+                viewModel.checkFirstTimeUser()
             }
-            viewModel.checkFirstTimeUser()
+
         }
     }
     override fun onDestroyView() {

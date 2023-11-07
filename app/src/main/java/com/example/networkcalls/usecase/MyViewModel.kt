@@ -25,27 +25,21 @@ class MyViewModel @Inject constructor(
 
     val state = MutableSharedFlow<MyViewState>()
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            state.emit(MyViewState.IsLoading)
+    fun checkFirstTimeUser() {
+        val firstTimeUser = preferences.getBoolean(KEY_FIRST_TIME_USER, true)
+        if (firstTimeUser) {
+            preferences.edit().putBoolean(KEY_FIRST_TIME_USER, false).apply()
+            viewModelScope.launch(Dispatchers.IO) {
+                state.emit(MyViewState.IsFirstTimeUser)
+            }
         }
     }
-        fun checkFirstTimeUser() {
-            val firstTimeUser = preferences.getBoolean(KEY_FIRST_TIME_USER, true)
-            if (firstTimeUser) {
-                preferences.edit().putBoolean(KEY_FIRST_TIME_USER, false).apply()
-                viewModelScope.launch(Dispatchers.IO) {
-                    state.emit(MyViewState.IsFirstTimeUser)
-                }
-            }
-        }
-        fun getJoke() {
-            Log.d("MyViewModel", "getJoke")
 
-            viewModelScope.launch(Dispatchers.IO) {
-                val result = jokeRepository.getJoke()
-                state.emit(MyViewState.Result(result))
-            }
+    fun getJoke() {
+        Log.d("MyViewModel", "getJoke")
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = jokeRepository.getJoke()
+            state.emit(MyViewState.Result(result))
         }
-
+    }
 }
