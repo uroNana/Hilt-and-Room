@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.networkcalls.R
 import com.example.networkcalls.databinding.FragmentFirstBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FirstFragment : Fragment() {
     private var _binding: FragmentFirstBinding? = null
 

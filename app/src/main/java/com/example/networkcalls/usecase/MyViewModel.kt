@@ -10,13 +10,15 @@ import com.example.networkcalls.repository.JokeRepository
 import com.example.networkcalls.repository.dao.RepoDao
 import com.example.networkcalls.repository.entity.toDomain
 import com.example.networkcalls.repository.entity.toEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val KEY_FIRST_TIME_USER = "first_time_user"
-
-class MyViewModel(
+@HiltViewModel
+class MyViewModel @Inject constructor(
     private val jokeRepository: JokeRepository,
     private val preferences: SharedPreferences
 ) : ViewModel() {

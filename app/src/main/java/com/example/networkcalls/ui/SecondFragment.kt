@@ -7,18 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.networkcalls.MyApplication
 import com.example.networkcalls.databinding.FragmentSecondBinding
 import com.example.networkcalls.network.Data
 import com.example.networkcalls.usecase.state.MyViewState
 import com.example.networkcalls.usecase.MyViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class SecondFragment : Fragment() {
 
-    private lateinit var viewModel: MyViewModel
-
+    private val viewModel: MyViewModel by viewModels()
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
 
@@ -31,8 +32,8 @@ class SecondFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val application = (requireActivity().application as MyApplication)
-        viewModel = application.mainViewModelFactory.create(MyViewModel::class.java)
+        //val application = (requireActivity().application as MyApplication)
+        //viewModel = application.mainViewModelFactory.create(MyViewModel::class.java)
         binding.buttonSecond.setOnClickListener {
             viewModel.getJoke()
         }
